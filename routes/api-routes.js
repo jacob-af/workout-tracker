@@ -29,7 +29,11 @@ router.get("/api/workouts/range", (req, res) => {
     .sort({ day: 1 })
     .then(dbWorkout => {
       console.log(dbWorkout);
-      res.json(dbWorkout.slice(dbWorkout.length - 7));
+      if (dbWorkout.length > 7) {
+        res.json(dbWorkout.slice(dbWorkout.length - 7));
+      } else {
+        res.json(dbWorkout);
+      }
     })
     .catch(err => {
       res.status(400).json(err);
